@@ -375,7 +375,9 @@ end
 
 describe "Tag with AR whitelisted attributes enabled" do
   before(:all) do
-    ActiveRecord::Base.attr_accessible(nil) # turn on whitelisted attributes
+    unless defined?(ActiveModel::ForbiddenAttributesProtection) && ancestors.include?(ActiveModel::ForbiddenAttributesProtection)
+      ActiveRecord::Base.attr_accessible(nil) # turn on whitelisted attributes
+    end
     ActiveRecord::Base.descendants.each { |ea| ea.reset_column_information }
   end
   it "should not include ActiveModel::ForbiddenAttributesProtection" do
