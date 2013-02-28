@@ -95,7 +95,7 @@ describe Label do
         roots.should =~ [i]
         while (!instances.empty?) do
           child = instances.shift
-          i.children.should =~ [child]
+          i.children.to_a.should =~ [child]
           i = child
         end
       end
